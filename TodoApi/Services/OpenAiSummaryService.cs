@@ -40,7 +40,7 @@ namespace TodoApi.Services
             {
                 model = "o4-mini",
                 messages = new[] {
-                    new { role = "system", content = "You are an expert economic analyst. Your goal is to make economics understandable for anyone no matter their background/education and the way you talk reflects that." },
+                    new { role = "system", content = "You are an extremely smart economic analyst. Your goal is to make economics understandable for anyone no matter their background/education and the way you talk reflects that. You make very precise judgements with your percentage scores based on training data and the data provided." },
                     new { role = "user", content = prompt }
                 }
             };

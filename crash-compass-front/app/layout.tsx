@@ -26,7 +26,11 @@ export default function RootLayout({
       <html lang="en" className={beVietnamPro.className}>
         <body className="antialiased">
           {children}
+          <footer className="text-center text-sm text-accent/70 mb-10">
+            &copy; {new Date().getFullYear()} CrashCompass. All rights reserved.
+          </footer>
         </body>
+
       </html>
     </>
   );

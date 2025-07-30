@@ -1,24 +1,113 @@
 "use client";
 import MainDial from "./home-components/MainDial";
-import LaborMarketSection from "./home-components/LaborMarketSection";
-import ConsumersSection from "./home-components/ConsumersSection";
-import FinancialConditionsSection from "./home-components/FinancialConditionsSection";
-import ProductionSection from "./home-components/ProductionSection";
+import OutlookCard from "./home-components/OutlookCard";
+import { useState, useEffect } from "react";
+
+interface OutlookData {
+  percentScore: number;
+}
 
 export default function Home() {
+  const [outlookData, setOutlookData] = useState<Record<string, OutlookData>>({});
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchOutlookData = async () => {
+      try {
+        const categories = ['labor', 'consumer', 'financial', 'production'];
+        const promises = categories.map(async (category) => {
+          const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/outlook/${category}`);
+          if (response.ok) {
+            const data = await response.json();
+            return [category, { percentScore: data.percentScore }];
+          }
+          return [category, { percentScore: 50 }];
+        });
+
+        const results = await Promise.all(promises);
+        const data = Object.fromEntries(results);
+        setOutlookData(data);
+      } catch (error) {
+        console.error('Failed to fetch outlook data:', error);
+        // if API fails
+        const defaultData = {
+          labor: { percentScore: 50 },
+          consumer: { percentScore: 50 },
+          financial: { percentScore: 50 },
+          production: { percentScore: 50 }
+        };
+        setOutlookData(defaultData);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchOutlookData();
+  }, []);
+
+  const outlookCards = [
+    {
+      title: "Labor Market",
+      category: "labor",
+      color: "#c8bcab",
+      href: "/labor-market"
+    },
+    {
+      title: "Consumer Behavior", 
+      category: "consumer",
+      color: "#c8bcab",
+      href: "/consumers"
+    },
+    {
+      title: "Financial Conditions",
+      category: "financial", 
+      color: "#c8bcab",
+      href: "/financial-conditions"
+    },
+    {
+      title: "Production",
+      category: "production",
+      color: "#c8bcab", 
+      href: "/production"
+    }
+  ];
+
   return (
     <main className="max-w-5xl mx-auto px-4 md:px-10 py-3 text-[var(--foreground)]">
       <MainDial />
-      <LaborMarketSection />
-      <ConsumersSection />
-      <FinancialConditionsSection />
-      <ProductionSection />
+      
+      {/* Outlook Cards Section */}
+      <section className="mb-16">
+        <div className="mb-6">
+          <h2 className="text-3xl font-bold mb-6">Economic Outlook</h2>
+          <p className="mb-8 text-gray-700 leading-relaxed text-lg">
+            Click any card to view detailed analysis and charts
+          </p>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {outlookCards.map((card) => {
+            const data = outlookData[card.category];
+            return (
+              <OutlookCard
+                key={card.category}
+                title={card.title}
+                category={card.category}
+                score={loading ? 0 : data?.percentScore || 50}
+                color={card.color}
+                href={card.href}
+                loading={loading}
+              />
+            );
+          })}
+        </div>
+      </section>
 
       <section className="mb-24 grid md:grid-cols-3 gap-10 items-start">
         <div className="md:col-span-2">
           <h2 className="text-3xl font-bold mb-6">How it Works</h2>
           <p className="mb-8 text-gray-700 leading-relaxed text-lg">
-            Our dashboard crunches decades of official economic data using machine learning, so you don’t have to. Here’s how we turn raw numbers into the dial at the top of this page.
+            Our dashboard crunches decades of official economic data using machine learning, so you don't have to. Here's how we turn raw numbers into the dial at the top of this page.
           </p>
           <ol className="space-y-7 text-gray-800 text-base leading-relaxed pl-4 border-l-4 border-accent/60">
             <li>
@@ -35,7 +124,7 @@ export default function Home() {
             </li>
             <li>
               <span className="font-bold text-accent">Interpret</span>
-              &nbsp;· We display our model’s findings as a simple percentage score, along with every chart and data point that influenced it for your own interpretation.
+              &nbsp;· We display our model's findings as a simple percentage score, along with every chart and data point that influenced it for your own interpretation.
             </li>
           </ol>
         </div>
@@ -47,7 +136,7 @@ export default function Home() {
             See exactly how the score is calculated, or just enjoy the insights.
           </p>
           <a
-            href="https://github.com/yourprojectrepo"
+            href="https://github.com/lukeestanton/crash-compass"
             target="_blank"
             rel="noopener noreferrer"
             className="mt-2 text-accent underline font-medium hover:text-accent/80 transition"
@@ -56,10 +145,6 @@ export default function Home() {
           </a>
         </div>
       </section>
-
-      <footer className="text-center text-sm text-accent/70">
-        &copy; {new Date().getFullYear()} CrashCompass. All rights reserved.
-      </footer>
     </main>
   );
 }
