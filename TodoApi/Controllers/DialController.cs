@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using CrashCompassBack.Services;
+using TodoApi.Services;
 
-namespace CrashCompassBack.Controllers
+namespace TodoApi.Controllers
 {
     [ApiController]
     [Route("api/dial")]

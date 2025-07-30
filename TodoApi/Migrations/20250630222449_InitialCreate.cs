@@ -3,7 +3,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace CrashCompassBack.Migrations
+namespace TodoApi.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration

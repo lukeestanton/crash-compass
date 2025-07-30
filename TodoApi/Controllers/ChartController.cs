@@ -1,10 +1,10 @@
 using System.Net.Http.Headers;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
-using CrashCompassBack.Models;
-using CrashCompassBack.Services;
+using TodoApi.Models;
+using TodoApi.Services;
 
-namespace CrashCompassBack.Controllers
+namespace TodoApi.Controllers
 {
     [ApiController]
     [Route("api/chart")]
