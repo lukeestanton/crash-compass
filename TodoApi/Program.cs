@@ -45,7 +45,8 @@ builder.Services.AddCors(options =>
             policy.WithOrigins(
                 "http://localhost:3000",
                 "https://localhost:3000",
-                "http://192.168.86.42:3000"
+                "http://192.168.86.42:3000",
+                "https://crash-compass.vercel.app/"
                 )
                   .AllowAnyHeader()
                   .AllowAnyMethod();
