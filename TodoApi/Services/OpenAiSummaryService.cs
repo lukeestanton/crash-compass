@@ -35,10 +35,10 @@ namespace TodoApi.Services
 
             var indicatorDescriptions = indicatorValues.Select(kv =>
                 $"{kv.Key}: Current={kv.Value.current?.ToString("F1") ?? "N/A"}, 1 Year Ago={kv.Value.yearAgo?.ToString("F1") ?? "N/A"}");
-            var prompt = $"Given these indicator values for the '{category}' category, showing the current value (on the date {DateTime.Today}) and the value 1 year ago: {string.Join(", ", indicatorDescriptions)}. First, provide a single integer percent score (0-100) representing the overall outlook for this category, then provide 3 longer, expertly written paragraphs summarizing the outlook using insights from the data provided as well as your training data for the same indicators. IMPORTANT: If any values were null or look weird (like staying completely constant through time) or anything else seems off, indicate which ones and their dates and the problem in a fourth paragraph. Format your response as: 'Score: <number>\nSummary: <paragraph 1>\n<paragraph 2>\n<paragraph 3>\n<optional fourth paragraph indicating errors>'.";
+            var prompt = $"Given these indicator values for the '{category}' category, showing the current value (on the date {DateTime.Today}) and the value 1 year ago: {string.Join(", ", indicatorDescriptions)}. First, provide a single integer percent score (0-100) representing the overall outlook for this category (dont just pick multiples of 5 for the score. give an accurate exact score), then provide 3 longer, expertly written paragraphs summarizing the outlook using insights from the data provided as well as your training data for the same indicators. IMPORTANT: If any values were null or look weird (like staying completely constant through time) or anything else seems off, indicate which ones and their dates and the problem in a fourth paragraph. Format your response as: 'Score: <number>\nSummary: <paragraph 1>\n<paragraph 2>\n<paragraph 3>\n<optional fourth paragraph indicating errors>'.";
             var requestBody = new
             {
-                model = "o4-mini",
+                model = "gpt-4o",
                 messages = new[] {
                     new { role = "system", content = "You are an extremely smart economic analyst. Your goal is to make economics understandable for anyone no matter their background/education and the way you talk reflects that. You make very precise judgements with your percentage scores based on training data and the data provided." },
                     new { role = "user", content = prompt }

@@ -45,11 +45,13 @@ function Needle({ value, cx, cy, iR, oR, color }: NeedleProps) {
 export default function MainDial() {
   const [dialVal, setDialVal] = useState(0);
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/dial`)
       .then(res => res.json())
       .then(data => setDialVal(data.score ?? data.Score ?? 0))
+      .then(() => setLoading(false))
       .catch(() => setError("Failed to load forecast"));
   }, []);
 
@@ -72,17 +74,22 @@ export default function MainDial() {
   const oR = 285;
 
   return (
-    <section className="mb-24 flex justify-start">
+    <section className="mb-12 flex justify-start">
       <div className="flex flex-col w-fit">
         <div className="flex items-end gap-x-16 h-[350px]">
           <div className="flex flex-col justify-end">
             <span className="font-semibold tracking-wide text-gray-600 text-4xl">
               Live Recession Forecast
             </span>
-            {error
-              ? <span className="text-red-500 mt-2">{error}</span>
-              : <span className="text-8xl font-extrabold leading-none">{dialVal}%</span>
-            }
+            {error ? (
+              <span className="text-red-500 mt-2">{error}</span>
+            ) : loading ? (
+              <div className="flex items-center justify-center mt-4">
+                <div className="animate-spin w-12 h-12 border-4 border-gray-300 border-t-[#c8bcab] rounded-full"></div>
+              </div>
+            ) : (
+              <span className="text-8xl font-extrabold leading-none">{dialVal}%</span>
+            )}
           </div>
 
           <PieChart width={width} height={height}>

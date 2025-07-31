@@ -1,5 +1,6 @@
 "use client";
 import LineChartCard, { LineChartCardProps } from "../home-components/LineChartCard";
+import ChartSearch from "../home-components/ChartSearch";
 import { useEffect, useState } from "react";
 
 const laborCharts: Array<{
@@ -64,6 +65,7 @@ const laborCharts: Array<{
 export default function LaborMarketPage() {
     const [outlook, setOutlook] = useState<{ percentScore: number; summary: string } | null>(null);
     const [loading, setLoading] = useState(true);
+    const [filteredCharts, setFilteredCharts] = useState(laborCharts);
     useEffect(() => {
         fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/outlook/labor`)
             .then((res) => res.json())
@@ -77,7 +79,7 @@ export default function LaborMarketPage() {
                 <h1 className="text-3xl font-bold">Labor Market Outlook & Analysis</h1>
                 {outlook && (
                     <div className="flex items-center gap-2">
-                        <span className="text-gray-500 text-base font-medium">Outlook Score:</span>
+                        <span className="text-gray-500 text-base font-medium">Stability Score:</span>
                         <span className="text-2xl font-extrabold text-accent">{outlook.percentScore}%</span>
                     </div>
                 )}
@@ -96,24 +98,29 @@ export default function LaborMarketPage() {
                     </div>
                 )
             )}
-
-            <h2 className="text-2xl font-bold mb-8">Labor Market Data</h2>
-
-            <div className="flex flex-col gap-8">
-                {laborCharts.map(({ title, blurb, chartProps }) => (
-                    <article
-                        key={title}
-                        className="bg-white border border-accent/30 rounded-2xl shadow-sm hover:shadow-md transition p-8 flex flex-col md:flex-row items-center md:items-stretch"
-                    >
-                        <div className="w-full md:w-3/5 aspect-[5/3] mb-6 rounded-xl flex items-center justify-center bg-gradient-to-br from-accent/20 to-white">
-                            <LineChartCard {...chartProps} height={240} />
-                        </div>
-                        <div className="md:w-2/5 flex flex-col justify-center md:pl-8">
-                            <h3 className="text-xl font-bold mb-2 text-left">{title}</h3>
-                            <p className="text-gray-700 text-left">{blurb}</p>
-                        </div>
-                    </article>
-                ))}
+            
+            {/* Charts Section */}
+            <div className="mt-16">
+                <div className="border-t border-gray-200 pt-8">
+                    <h2 className="text-2xl font-bold mb-6">Labor Market Data Charts</h2>
+                    <ChartSearch charts={laborCharts} onFilteredChartsChange={setFilteredCharts} />
+                    <div className="flex flex-col gap-8">
+                        {filteredCharts.map(({ title, blurb, chartProps }) => (
+                            <article
+                                key={title}
+                                className="bg-white border border-accent/30 rounded-2xl shadow-sm hover:shadow-md transition p-8 flex flex-col md:flex-row items-center md:items-stretch"
+                            >
+                                <div className="w-full md:w-3/5 aspect-[5/3] mb-6 rounded-xl flex items-center justify-center bg-gradient-to-br from-accent/20 to-white">
+                                    <LineChartCard {...chartProps} height={240} />
+                                </div>
+                                <div className="md:w-2/5 flex flex-col justify-center md:pl-8">
+                                    <h3 className="text-xl font-bold mb-2 text-left">{title}</h3>
+                                    <p className="text-gray-700 text-left">{blurb}</p>
+                                </div>
+                            </article>
+                        ))}
+                    </div>
+                </div>
             </div>
         </main>
 

@@ -38,7 +38,7 @@ export default function OutlookCard({ title, category, score, color, href, loadi
               style={{ backgroundColor: color }}
             />
             <div>
-              <h3 className="font-semibold text-gray-900">{title}</h3>
+              <h3 className="font-semibold text-gray-900">{title} Stability</h3>
               <p className="text-sm text-gray-500 capitalize">{category}</p>
             </div>
           </div>

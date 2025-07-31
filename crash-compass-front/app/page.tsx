@@ -78,9 +78,9 @@ export default function Home() {
       
       {/* Outlook Cards Section */}
       <section className="mb-16">
-        <div className="mb-6">
-          <h2 className="text-3xl font-bold mb-6">Economic Outlook</h2>
-          <p className="mb-8 text-gray-700 leading-relaxed text-lg">
+        <div className="mb-4">
+          <h2 className="text-3xl font-bold mb-2">Economic Outlook</h2>
+          <p className="text-gray-700 leading-relaxed text-lg">
             Click any card to view detailed analysis and charts
           </p>
         </div>
@@ -105,8 +105,8 @@ export default function Home() {
 
       <section className="mb-24 grid md:grid-cols-3 gap-10 items-start">
         <div className="md:col-span-2">
-          <h2 className="text-3xl font-bold mb-6">How it Works</h2>
-          <p className="mb-8 text-gray-700 leading-relaxed text-lg">
+          <h2 className="text-3xl font-bold mb-3">How it Works</h2>
+          <p className="mb-6 text-gray-700 leading-relaxed text-lg">
             Our dashboard crunches decades of official economic data using machine learning, so you don't have to. Here's how we turn raw numbers into the dial at the top of this page.
           </p>
           <ol className="space-y-7 text-gray-800 text-base leading-relaxed pl-4 border-l-4 border-accent/60">
@@ -128,12 +128,17 @@ export default function Home() {
             </li>
           </ol>
         </div>
-        <div className="bg-white border border-accent/30 rounded-2xl shadow-xl p-8 flex flex-col items-center text-center max-w-sm mx-auto mt-20">
+        <div className="bg-white border border-accent/30 rounded-2xl shadow-xl p-8 flex flex-col items-center text-center max-w-sm mx-auto">
           <span className="text-6xl font-extrabold text-accent mb-4">🧠</span>
           <h3 className="font-semibold text-xl mb-2 text-accent">Machine Learning, Out in the Open</h3>
           <p className="text-gray-700 mb-3">
             Our code and models are open-source. <br />
             See exactly how the score is calculated, or just enjoy the insights.
+          </p>
+          <p>
+            
+            Help improve the model by contributing to the codebase or suggesting new indicators.
+
           </p>
           <a
             href="https://github.com/lukeestanton/crash-compass"
@@ -142,6 +147,14 @@ export default function Home() {
             className="mt-2 text-accent underline font-medium hover:text-accent/80 transition"
           >
             View on GitHub →
+          </a>
+          <a
+            href="https://fred.stlouisfed.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-2 text-accent underline font-medium hover:text-accent/80 transition"
+          >
+            View data sources →
           </a>
         </div>
       </section>
