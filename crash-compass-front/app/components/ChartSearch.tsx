@@ -23,7 +23,6 @@ export default function ChartSearch({ charts, onFilteredChartsChange }: ChartSea
         );
     }, [charts, searchTerm]);
 
-    // Update parent component whenever filtered charts change
     useEffect(() => {
         onFilteredChartsChange(filteredCharts);
     }, [filteredCharts, onFilteredChartsChange]);
