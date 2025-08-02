@@ -17,21 +17,21 @@ export default function Header() {
           />
         </Link>
       </div>
-      <div className="flex gap-6">
+      <div className="hidden md:flex gap-6">
         <Link
-          href="/labor-market"
+          href="/labor"
           className="text-base font-semibold text-gray-700 hover:text-[#c8bcab] transition-colors"
         >
           LABOR MARKET
         </Link>
         <Link
-          href="/consumers"
+          href="/consumer"
           className="text-base font-semibold text-gray-700 hover:text-[#c8bcab] transition-colors"
         >
           CONSUMERS
         </Link>
         <Link
-          href="/financial-conditions"
+          href="/financial"
           className="text-base font-semibold text-gray-700 hover:text-[#c8bcab] transition-colors"
         >
           FINANCIAL CONDITIONS

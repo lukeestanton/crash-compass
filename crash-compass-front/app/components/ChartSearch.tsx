@@ -1,19 +1,10 @@
 "use client";
 import { useState, useMemo, useEffect } from "react";
+import { ChartDefinition } from "../data/chartDefinitions";
 
 interface ChartSearchProps {
-    charts: Array<{
-        title: string;
-        blurb: string;
-        chartProps: any;
-        featured?: boolean;
-    }>;
-    onFilteredChartsChange: (filteredCharts: Array<{
-        title: string;
-        blurb: string;
-        chartProps: any;
-        featured?: boolean;
-    }>) => void;
+    charts: ChartDefinition[];
+    onFilteredChartsChange: (filteredCharts: ChartDefinition[]) => void;
 }
 
 export default function ChartSearch({ charts, onFilteredChartsChange }: ChartSearchProps) {

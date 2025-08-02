@@ -20,6 +20,7 @@ export interface LineChartCardProps {
     tooltipValueFormatter?: (v: any) => any[];
     apiBase?: string;
     height?: number;
+    citation?: string;
 }
 
 const ACCENT = "#C8BCAB";
@@ -50,6 +51,7 @@ export default function LineChartCard({
     tooltipValueFormatter = v => [v, title],
     apiBase = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/chart`,
     height = 320,
+    citation,
 }: LineChartCardProps) {
     const [data, setData] = useState<any[]>([]);
     const [error, setError] = useState<string | null>(null);
@@ -198,26 +200,11 @@ export default function LineChartCard({
                     </LineChart>
                 </ResponsiveContainer>
             </div>
-
-            {data.length > 0 && (
+            
+            {citation && (
                 <div className="mt-4 pt-4 border-t border-gray-200">
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-                        <div>
-                            <span className="text-gray-600">Data Points:</span>
-                            <span className="ml-2 font-medium">{data.length}</span>
-                        </div>
-                        <div>
-                            <span className="text-gray-600">Current:</span>
-                            <span className="ml-2 font-medium">{data[data.length - 1]?.value?.toFixed(2)}</span>
-                        </div>
-                        <div>
-                            <span className="text-gray-600">Min:</span>
-                            <span className="ml-2 font-medium">{Math.min(...data.map(d => d.value)).toFixed(2)}</span>
-                        </div>
-                        <div>
-                            <span className="text-gray-600">Max:</span>
-                            <span className="ml-2 font-medium">{Math.max(...data.map(d => d.value)).toFixed(2)}</span>
-                        </div>
+                    <div className="text-xs text-gray-500">
+                        <span className="font-medium">Source:</span> {citation}
                     </div>
                 </div>
             )}

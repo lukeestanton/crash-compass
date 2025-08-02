@@ -14,6 +14,7 @@ public static class ChartDefinitions
         ["initialclaims"] = "ICSA",
         ["payems"] = "PAYEMS",
         ["awhman"] = "AWHMAN",
+        ["jtsjol"] = "JTSJOL",
 
         // Consumers
         ["consumersentiment"] = "UMCSENT",

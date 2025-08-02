@@ -65,18 +65,17 @@ export default function MainDial() {
     { name: "Extreme", value: 5, color: "#D95B4A" },
   ];
 
-  // constants for layout
   const width = 600;
-  const height = 350;
+  const height = 320;
   const cx = width / 2;
-  const cy = height + 27;
+  const cy = height;
   const iR = 180;
   const oR = 285;
 
   return (
-    <section className="mb-12 flex justify-start">
+    <section className="mb-8 md:mb-12">
       <div className="flex flex-col w-fit">
-        <div className="flex items-end gap-x-16 h-[350px]">
+        <div className="flex items-end gap-x-16">
           <div className="flex flex-col justify-end">
             <span className="font-semibold tracking-wide text-gray-600 text-4xl">
               Live Recession Forecast
@@ -92,49 +91,49 @@ export default function MainDial() {
             )}
           </div>
 
-          <PieChart width={width} height={height}>
-            <Pie
-              data={[{ value: 1 }]}
-              dataKey="value"
-              cx={cx}
-              cy={cy}
-              startAngle={180}
-              endAngle={0}
-              innerRadius={oR + 1}
-              outerRadius={oR + 8}
-              stroke={BORDER}
-              strokeWidth={8}
-              fill="none"
-              isAnimationActive={false}
-            />
+          <div className="hidden md:block">
+            <PieChart width={width} height={height}>
+              <Pie
+                data={[{ value: 1 }]}
+                dataKey="value"
+                cx={cx}
+                cy={cy}
+                startAngle={180}
+                endAngle={0}
+                innerRadius={oR + 1}
+                outerRadius={oR + 8}
+                stroke={BORDER}
+                strokeWidth={8}
+                fill="none"
+                isAnimationActive={false}
+              />
 
-            <Pie
-              data={data}
-              dataKey="value"
-              cx={cx}
-              cy={cy}
-              startAngle={180}
-              endAngle={0}
-              innerRadius={iR}
-              outerRadius={oR}
-              stroke="none"
-            >
-              {data.map((entry) => (
-                <Cell key={entry.name} fill={entry.color} />
-              ))}
-            </Pie>
+              <Pie
+                data={data}
+                dataKey="value"
+                cx={cx}
+                cy={cy}
+                startAngle={180}
+                endAngle={0}
+                innerRadius={iR}
+                outerRadius={oR}
+                stroke="none"
+              >
+                {data.map((entry) => (
+                  <Cell key={entry.name} fill={entry.color} />
+                ))}
+              </Pie>
 
-            <Needle
-              value={dialVal}
-              cx={cx}
-              cy={cy}
-              iR={iR}
-              oR={oR}
-              color="rgba(255,255,255,0.37)"
-            />
-          </PieChart>
-
-
+              <Needle
+                value={dialVal}
+                cx={cx}
+                cy={cy}
+                iR={iR}
+                oR={oR}
+                color="rgba(255,255,255,0.37)"
+              />
+            </PieChart>
+          </div>
         </div>
         <div className="border-b-2 border-gray-300 w-full" />
         

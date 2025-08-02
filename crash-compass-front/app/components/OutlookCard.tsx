@@ -12,17 +12,21 @@ interface OutlookCardProps {
 
 export default function OutlookCard({ title, category, score, color, href, loading = false }: OutlookCardProps) {
   const getScoreColor = (score: number) => {
+
     if (score >= 70) return "text-green-600";
     if (score >= 50) return "text-yellow-600";
     if (score >= 30) return "text-orange-600";
+    if (score >= 10) return "text-red-600";
     return "text-red-600";
   };
 
   const getScoreLabel = (score: number) => {
+    if (score >= 90) return "Very Strong";
     if (score >= 70) return "Strong";
     if (score >= 50) return "Moderate";
     if (score >= 30) return "Weak";
-    return "Poor";
+    if (score >= 10) return "Very Weak";
+    return "Dangerous";
   };
 
   return (

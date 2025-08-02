@@ -1,6 +1,6 @@
 "use client";
-import MainDial from "./home-components/MainDial";
-import OutlookCard from "./home-components/OutlookCard";
+import MainDial from "./components/MainDial";
+import OutlookCard from "./components/OutlookCard";
 import { useState, useEffect } from "react";
 
 interface OutlookData {
@@ -50,19 +50,19 @@ export default function Home() {
       title: "Labor Market",
       category: "labor",
       color: "#c8bcab",
-      href: "/labor-market"
+                      href: "/labor"
     },
     {
       title: "Consumer Behavior", 
       category: "consumer",
       color: "#c8bcab",
-      href: "/consumers"
+      href: "/consumer"
     },
     {
       title: "Financial Conditions",
       category: "financial", 
       color: "#c8bcab",
-      href: "/financial-conditions"
+                      href: "/financial"
     },
     {
       title: "Production",
@@ -73,7 +73,7 @@ export default function Home() {
   ];
 
   return (
-    <main className="max-w-5xl mx-auto px-4 md:px-10 py-3 text-[var(--foreground)]">
+    <main className="max-w-5xl mx-auto px-4 md:px-10 py-4 md:py-3 text-[var(--foreground)]">
       <MainDial />
       
       {/* Outlook Cards Section */}
