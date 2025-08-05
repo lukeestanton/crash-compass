@@ -15,7 +15,7 @@ export default function Home() {
   useEffect(() => {
     const fetchOutlookData = async () => {
       try {
-        const categories = ['labor', 'consumer', 'financial', 'production'];
+        const categories = ['labor', 'consumer', 'financial', 'production', 'housing'];
         const promises = categories.map(async (category) => {
           const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/outlook/${category}`);
           if (response.ok) {
@@ -35,7 +35,8 @@ export default function Home() {
           labor: { percentScore: 50 },
           consumer: { percentScore: 50 },
           financial: { percentScore: 50 },
-          production: { percentScore: 50 }
+          production: { percentScore: 50 },
+          housing: { percentScore: 50 }
         };
         setOutlookData(defaultData);
       } finally {
@@ -70,6 +71,12 @@ export default function Home() {
       category: "production",
       color: "#c8bcab", 
       href: "/production"
+    },
+    {
+      title: "Housing",
+      category: "housing",
+      color: "#c8bcab",
+      href: "/housing"
     }
   ];
 

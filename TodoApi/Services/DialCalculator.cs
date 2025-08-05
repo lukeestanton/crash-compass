@@ -29,6 +29,16 @@ public class DialCalculator : IDialCalculator
     private static double ScoreCapacityUtil(double? v) => RangeScoreHighGood(v, 70, 78);
     private static double ScoreDurGoods(double? v) => RangeScoreHighGood(v, 270_000, 290_000);
     private static double ScoreNewOrders(double? v) => RangeScoreHighGood(v, 500_000, 550_000);
+    private static double ScoreJobOpenings(double? v) => RangeScoreHighGood(v, 8_000, 10_000);
+    private static double ScoreEmploymentRatio(double? v) => RangeScoreHighGood(v, 58, 62);
+    private static double ScoreConsumerCredit(double? v) => RangeScoreHighGood(v, 4_000, 4_500);
+    private static double ScorePersonalIncome(double? v) => RangeScoreHighGood(v, 20_000, 22_000);
+
+    private static double ScoreVix(double? v) => RangeScoreLowGood(v, 15, 25);
+    private static double ScoreInventoriesSales(double? v) => RangeScoreLowGood(v, 1.2, 1.5);
+
+    private static double ScoreHousingStarts(double? v) => RangeScoreHighGood(v, 1_200, 1_500);
+    private static double ScoreNewHomeSales(double? v) => RangeScoreHighGood(v, 600, 800);
 
 
     private static double RangeScoreLowGood(double? v, double lowGood, double highBad)
@@ -54,48 +64,55 @@ public class DialCalculator : IDialCalculator
         ["initialclaims"] = ScoreInitialClaims,
         ["payems"] = ScorePayrolls,
         ["awhman"] = ScoreManufHours,
+        ["jtsjol"] = ScoreJobOpenings,
+        ["emratio"] = ScoreEmploymentRatio,
 
         // Consumers
         ["consumersentiment"] = ScoreConsumerSent,
         ["retailsales"] = ScoreRetailSalesYoY,
         ["pcec96"] = ScoreRealPCE,
         ["psavert"] = ScoreSavingRate,
+        ["totalsl"] = ScoreConsumerCredit,
+        ["pi"] = ScorePersonalIncome,
 
         // Financial conditions
         ["yieldcurve"] = ScoreYieldCurve,
         ["stlfsi4"] = ScoreSTLStress,
         ["bamlh0a0hym2"] = ScoreHighYieldSpread,
         ["nfci"] = ScoreNFCI,
+        ["vixcls"] = ScoreVix,
 
         // Production
         ["indpro"] = ScoreIndProd,
         ["tcu"] = ScoreCapacityUtil,
         ["dgorder"] = ScoreDurGoods,
         ["neworder"] = ScoreNewOrders,
+        ["mnfctrirsa"] = ScoreInventoriesSales,
+
+        // Housing
+        ["houst"] = ScoreHousingStarts,
+        ["hsn1f"] = ScoreNewHomeSales,
     };
 
     private static readonly Dictionary<string, string[]> _buckets = new()
     {
-        ["labor"] = new[] { "unemployment", "initialclaims", "payems", "awhman" },
-        ["consumer"] = new[] { "consumersentiment", "retailsales", "pcec96", "psavert" },
-        ["financial"] = new[] { "yieldcurve", "stlfsi4", "bamlh0a0hym2", "nfci" },
-        ["production"] = new[] { "indpro", "tcu", "dgorder", "neworder" }
+        ["labor"] = new[] { "unemployment", "initialclaims", "payems", "awhman", "jtsjol", "emratio" },
+        ["consumer"] = new[] { "consumersentiment", "retailsales", "pcec96", "psavert", "totalsl", "pi" },
+        ["financial"] = new[] { "yieldcurve", "stlfsi4", "bamlh0a0hym2", "nfci", "vixcls" },
+        ["production"] = new[] { "indpro", "tcu", "dgorder", "neworder", "mnfctrirsa" },
+        ["housing"] = new[] { "houst", "hsn1f" }
     };
 
-    // Each bucket gets equal weight (0.25).  Adjust if you want custom weights.
     public async Task<DialResult> GetCurrentScoreAsync()
     {
-        // 1) fetch everything in parallel
         var valueTasks = _scorers.Keys.ToDictionary(k => k, k => _fred.GetLatestAsync(k));
         await Task.WhenAll(valueTasks.Values);
 
-        // 2) score every indicator
         var scores = valueTasks.ToDictionary(
             kvp => kvp.Key,
             kvp => _scorers[kvp.Key](kvp.Value.Result)
         );
-
-        // 3) bucket averages → composite
+        
         double BucketAvg(string[] keys) => keys.Select(k => scores[k]).Average();
 
         double composite = _buckets.Values.Select(BucketAvg).Average();

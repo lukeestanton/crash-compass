@@ -42,6 +42,12 @@ export default function Header() {
         >
           PRODUCTION
         </Link>
+        <Link
+          href="/housing"
+          className="text-base font-semibold text-gray-700 hover:text-[#c8bcab] transition-colors"
+        >
+          HOUSING
+        </Link>
       </div>
     </nav>
   );

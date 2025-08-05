@@ -72,6 +72,36 @@ export const allCharts: ChartDefinition[] = [
             citation: "U.S. Bureau of Economic Analysis, Personal Income and Outlays, FRED Economic Data",
         },
     },
+    {
+        title: "Consumer Credit Outstanding",
+        blurb: "Significant declines or sharp contractions indicate consumers becoming cautious, reducing spending and borrowing, signaling weakening demand.",
+        category: "consumer",
+        chartProps: {
+            chartName: "totalsl",
+            title: "Consumer Credit Outstanding (Billions $)",
+            range: { months: 60 },
+            yDomain: ["auto", "auto"],
+            yTickFormatter: (t: number) => t.toLocaleString(),
+            tooltipLabelFormatter: (l: string) => `Month: ${l}`,
+            tooltipValueFormatter: (v: number) => [v.toLocaleString(), "Consumer Credit (Billions $)"],
+            citation: "Federal Reserve Board, Consumer Credit, FRED Economic Data",
+        },
+    },
+    {
+        title: "Personal Income",
+        blurb: "Stagnation or declining personal income constrains consumer spending, weakening aggregate demand and often indicating recessionary pressures.",
+        category: "consumer",
+        chartProps: {
+            chartName: "pi",
+            title: "Personal Income (Billions $)",
+            range: { months: 60 },
+            yDomain: ["auto", "auto"],
+            yTickFormatter: (t: number) => t.toLocaleString(),
+            tooltipLabelFormatter: (l: string) => `Month: ${l}`,
+            tooltipValueFormatter: (v: number) => [v.toLocaleString(), "Personal Income (Billions $)"],
+            citation: "U.S. Bureau of Economic Analysis, Personal Income and Outlays, FRED Economic Data",
+        },
+    },
 
     // Labor Market Charts
     {
@@ -149,6 +179,21 @@ export const allCharts: ChartDefinition[] = [
             citation: "U.S. Bureau of Labor Statistics, Job Openings and Labor Turnover Survey, FRED Economic Data",
         },
     },
+    {
+        title: "Employment-Population Ratio",
+        blurb: "A falling employment-to-population ratio indicates weakening labor market participation, often reflecting deeper economic distress than unemployment alone.",
+        category: "labor",
+        chartProps: {
+            chartName: "emratio",
+            title: "Employment-Population Ratio (%)",
+            range: { months: 60 },
+            yDomain: ["auto", "auto"],
+            yTickFormatter: (t: number) => `${t}%`,
+            tooltipLabelFormatter: (l: string) => `Month: ${l}`,
+            tooltipValueFormatter: (v: number) => [`${v}%`, "Employment-Population Ratio"],
+            citation: "U.S. Bureau of Labor Statistics, Current Population Survey, FRED Economic Data",
+        },
+    },
 
     // Production Charts
     {
@@ -211,6 +256,22 @@ export const allCharts: ChartDefinition[] = [
             citation: "U.S. Census Bureau, Manufacturers' Shipments, Inventories, and Orders, FRED Economic Data",
         },
     },
+    {
+        title: "Manufacturers' Inventories-to-Sales Ratio",
+        blurb: "Rising inventories relative to sales suggest weakened demand, prompting future production cuts and often preceding recessions.",
+        category: "production",
+        chartProps: {
+            chartName: "mnfctrirsa",
+            title: "Manufacturers' Inventories-to-Sales Ratio",
+            range: { months: 60 },
+            yDomain: ["auto", "auto"],
+            yTickFormatter: (t: number) => t.toLocaleString("en-US", { maximumFractionDigits: 2 }),
+            tooltipLabelFormatter: (l: string) => `Month: ${l}`,
+            tooltipValueFormatter: (v: number) => [v.toLocaleString("en-US", { maximumFractionDigits: 2 }), "Inventories-to-Sales Ratio"],
+            citation: "U.S. Census Bureau, Manufacturers' Shipments, Inventories, and Orders, FRED Economic Data",
+        },
+    },
+
 
     // Financial Conditions Charts
     {
@@ -274,6 +335,214 @@ export const allCharts: ChartDefinition[] = [
         },
     },
 
+    {
+        title: "VIX Volatility Index",
+        blurb: "A sharp rise in the VIX indicates market uncertainty and investor anxiety, often correlated with recessions and economic downturns.",
+        category: "financial",
+        chartProps: {
+            chartName: "vixcls",
+            title: "VIX Volatility Index",
+            range: { months: 36 },
+            yDomain: ["auto", "auto"],
+            yTickFormatter: (t: number) => t.toLocaleString("en-US", { maximumFractionDigits: 2 }),
+            tooltipLabelFormatter: (l: string) => `Day: ${l}`,
+            tooltipValueFormatter: (v: number) => [v.toLocaleString("en-US", { maximumFractionDigits: 2 }), "VIX Index"],
+            citation: "Chicago Board Options Exchange, CBOE Volatility Index, FRED Economic Data",
+        },
+    },
+
+    // Housing Charts
+    {
+        title: "Housing Starts",
+        blurb: "Declining housing starts signal reduced construction activity due to weakening economic expectations, a leading indicator historically preceding recessions.",
+        category: "housing",
+        chartProps: {
+            chartName: "houst",
+            title: "Housing Starts (Thousands)",
+            range: { months: 60 },
+            yDomain: ["auto", "auto"],
+            yTickFormatter: (t: number) => t.toLocaleString(),
+            tooltipLabelFormatter: (l: string) => `Month: ${l}`,
+            tooltipValueFormatter: (v: number) => [v.toLocaleString(), "Housing Starts (Thousands)"],
+            citation: "U.S. Census Bureau, New Residential Construction, FRED Economic Data",
+        },
+    },
+    {
+        title: "New Home Sales",
+        blurb: "Drops in new home sales reflect reduced consumer confidence and economic pessimism, reliably preceding recessionary periods.",
+        category: "housing",
+        chartProps: {
+            chartName: "hsn1f",
+            title: "New Home Sales (Thousands)",
+            range: { months: 60 },
+            yDomain: ["auto", "auto"],
+            yTickFormatter: (t: number) => t.toLocaleString(),
+            tooltipLabelFormatter: (l: string) => `Month: ${l}`,
+            tooltipValueFormatter: (v: number) => [v.toLocaleString(), "New Home Sales (Thousands)"],
+            citation: "U.S. Census Bureau, New Residential Sales, FRED Economic Data",
+        },
+    },
+
+    // Additional Labor Market Charts
+    {
+        title: "Temporary Help Services Employment",
+        blurb: "Temporary employment often leads permanent employment trends. Declines signal businesses becoming cautious about hiring, a leading indicator of labor market weakness.",
+        category: "labor",
+        chartProps: {
+            chartName: "temphelps",
+            title: "Temporary Help Services Employment (Thousands)",
+            range: { months: 60 },
+            yDomain: ["auto", "auto"],
+            yTickFormatter: (t: number) => t.toLocaleString(),
+            tooltipLabelFormatter: (l: string) => `Month: ${l}`,
+            tooltipValueFormatter: (v: number) => [v.toLocaleString(), "Temporary Employment (Thousands)"],
+            citation: "U.S. Bureau of Labor Statistics, Current Employment Statistics, FRED Economic Data",
+        },
+    },
+
+    {
+        title: "Continued Claims",
+        blurb: "Tracks the number of people continuing to receive unemployment benefits. Rising continued claims indicate difficulty finding new employment.",
+        category: "labor",
+        chartProps: {
+            chartName: "ccsa",
+            title: "Continued Claims (Thousands)",
+            range: { months: 18 },
+            yDomain: ["auto", "auto"],
+            yTickFormatter: (t: number) => t.toLocaleString(),
+            tooltipLabelFormatter: (l: string) => `Week: ${l}`,
+            tooltipValueFormatter: (v: number) => [v.toLocaleString(), "Continued Claims (Thousands)"],
+            citation: "U.S. Employment and Training Administration, Unemployment Insurance Weekly Claims Report, FRED Economic Data",
+        },
+    },
+
+    // Additional Production Charts
+    {
+        title: "Industrial Production: Business Equipment",
+        blurb: "Measures output of business equipment, a key indicator of business investment and capital spending trends.",
+        category: "production",
+        chartProps: {
+            chartName: "ipbuseq",
+            title: "Industrial Production: Business Equipment (Index)",
+            range: { months: 60 },
+            yDomain: ["auto", "auto"],
+            yTickFormatter: (t: number) => t.toLocaleString("en-US", { maximumFractionDigits: 1 }),
+            tooltipLabelFormatter: (l: string) => `Month: ${l}`,
+            tooltipValueFormatter: (v: number) => [v.toLocaleString("en-US", { maximumFractionDigits: 1 }), "Business Equipment Index"],
+            citation: "Federal Reserve Board, Industrial Production and Capacity Utilization, FRED Economic Data",
+        },
+    },
+
+    // Additional Financial Conditions Charts
+    {
+        title: "Chicago Fed Adjusted NFCI",
+        blurb: "The adjusted version of the National Financial Conditions Index, which removes the average level of financial stress to focus on deviations from normal conditions.",
+        category: "financial",
+        chartProps: {
+            chartName: "anfci",
+            title: "Chicago Fed Adjusted NFCI",
+            range: { months: 18 },
+            yDomain: ["auto", "auto"],
+            yTickFormatter: (t: number) => t.toLocaleString("en-US", { maximumFractionDigits: 2 }),
+            tooltipLabelFormatter: (l: string) => `Week: ${l}`,
+            tooltipValueFormatter: (v: number) => [v.toLocaleString("en-US", { maximumFractionDigits: 2 }), "Adjusted NFCI"],
+            citation: "Federal Reserve Bank of Chicago, National Financial Conditions Index, FRED Economic Data",
+        },
+    },
+    {
+        title: "S&P 500 Index",
+        blurb: "The S&P 500 tracks 500 large-cap U.S. stocks. Sharp declines often signal economic uncertainty and can precede recessions.",
+        category: "financial",
+        chartProps: {
+            chartName: "sp500",
+            title: "S&P 500 Index",
+            range: { months: 36 },
+            yDomain: ["auto", "auto"],
+            yTickFormatter: (t: number) => t.toLocaleString("en-US", { maximumFractionDigits: 0 }),
+            tooltipLabelFormatter: (l: string) => `Day: ${l}`,
+            tooltipValueFormatter: (v: number) => [v.toLocaleString("en-US", { maximumFractionDigits: 0 }), "S&P 500"],
+            citation: "S&P Dow Jones Indices LLC, S&P 500, FRED Economic Data",
+        },
+    },
+
+    // Additional Housing Charts
+    {
+        title: "Building Permits",
+        blurb: "Building permits are a leading indicator of future construction activity. Declining permits signal reduced construction plans and economic caution.",
+        category: "housing",
+        chartProps: {
+            chartName: "permit",
+            title: "Building Permits (Thousands)",
+            range: { months: 60 },
+            yDomain: ["auto", "auto"],
+            yTickFormatter: (t: number) => t.toLocaleString(),
+            tooltipLabelFormatter: (l: string) => `Month: ${l}`,
+            tooltipValueFormatter: (v: number) => [v.toLocaleString(), "Building Permits (Thousands)"],
+            citation: "U.S. Census Bureau, New Residential Construction, FRED Economic Data",
+        },
+    },
+    {
+        title: "Months' Supply of New Houses",
+        blurb: "Measures how long it would take to sell all new houses at the current sales rate. Rising supply indicates weakening demand and potential price pressure.",
+        category: "housing",
+        chartProps: {
+            chartName: "msacsr",
+            title: "Months' Supply of New Houses",
+            range: { months: 60 },
+            yDomain: ["auto", "auto"],
+            yTickFormatter: (t: number) => t.toLocaleString("en-US", { maximumFractionDigits: 1 }),
+            tooltipLabelFormatter: (l: string) => `Month: ${l}`,
+            tooltipValueFormatter: (v: number) => [v.toLocaleString("en-US", { maximumFractionDigits: 1 }), "Months' Supply"],
+            citation: "U.S. Census Bureau, New Residential Sales, FRED Economic Data",
+        },
+    },
+    {
+        title: "30-Year Fixed Mortgage Rate",
+        blurb: "The average interest rate on 30-year fixed-rate mortgages. Higher rates can dampen housing demand and economic activity.",
+        category: "housing",
+        chartProps: {
+            chartName: "mortgage30us",
+            title: "30-Year Fixed Mortgage Rate (%)",
+            range: { months: 60 },
+            yDomain: ["auto", "auto"],
+            yTickFormatter: (t: number) => `${t.toLocaleString("en-US", { maximumFractionDigits: 2 })}%`,
+            tooltipLabelFormatter: (l: string) => `Week: ${l}`,
+            tooltipValueFormatter: (v: number) => [`${v.toLocaleString("en-US", { maximumFractionDigits: 2 })}%`, "Mortgage Rate"],
+            citation: "Freddie Mac, Primary Mortgage Market Survey, FRED Economic Data",
+        },
+    },
+
+    {
+        title: "S&P/Case-Shiller U.S. National Home Price Index",
+        blurb: "Tracks changes in the value of residential real estate. Declining home prices can signal economic weakness and reduce consumer wealth.",
+        category: "housing",
+        chartProps: {
+            chartName: "csushpinsa",
+            title: "Case-Shiller U.S. National Home Price Index",
+            range: { months: 60 },
+            yDomain: ["auto", "auto"],
+            yTickFormatter: (t: number) => t.toLocaleString("en-US", { maximumFractionDigits: 0 }),
+            tooltipLabelFormatter: (l: string) => `Month: ${l}`,
+            tooltipValueFormatter: (v: number) => [v.toLocaleString("en-US", { maximumFractionDigits: 0 }), "Home Price Index"],
+            citation: "S&P Dow Jones Indices LLC, S&P/Case-Shiller U.S. National Home Price Index, FRED Economic Data",
+        },
+    },
+    {
+        title: "Existing Home Sales",
+        blurb: "Tracks sales of previously owned homes. Declining existing home sales indicate weakening housing demand and potential economic slowdown.",
+        category: "housing",
+        chartProps: {
+            chartName: "exhoslusm495s",
+            title: "Existing Home Sales (Millions)",
+            range: { months: 60 },
+            yDomain: ["auto", "auto"],
+            yTickFormatter: (t: number) => t.toLocaleString("en-US", { maximumFractionDigits: 1 }),
+            tooltipLabelFormatter: (l: string) => `Month: ${l}`,
+            tooltipValueFormatter: (v: number) => [v.toLocaleString("en-US", { maximumFractionDigits: 1 }), "Existing Home Sales (Millions)"],
+            citation: "National Association of Realtors, Existing Home Sales, FRED Economic Data",
+        },
+    },
+
 
 ];
 
@@ -290,4 +559,5 @@ export const categoryDisplayNames: Record<string, string> = {
     labor: "Labor Market",
     production: "Production",
     financial: "Financial Conditions",
+    housing: "Housing",
 };
