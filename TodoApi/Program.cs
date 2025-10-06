@@ -21,11 +21,10 @@ builder.Services.AddScoped<FredService>(sp =>
     return new FredService(httpClient, config, cache, cacheSettings);
 });
 
-// Register OpenAiSummaryService with API key from config
 builder.Services.AddSingleton<OpenAiSummaryService>(sp =>
 {
     var config = sp.GetRequiredService<IConfiguration>();
-    var apiKey = config["OpenAi:ApiKey"];
+    var apiKey = config["OpenAi:ApiKey"] ?? throw new InvalidOperationException("OpenAi:ApiKey configuration is required");
     return new OpenAiSummaryService(apiKey);
 });
 
@@ -61,7 +60,6 @@ var app = builder.Build();
 
 app.UseCors("AllowNextJs");
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
